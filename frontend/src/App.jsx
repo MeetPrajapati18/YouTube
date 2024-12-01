@@ -1,6 +1,21 @@
 import React from 'react';
+import axios from 'axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function App() {
+  const [jokes, setJokes] = useState([])
+
+  useEffect(() => {
+    axios.get('/api/v1/jokes')
+      .then((response) => {
+        setJokes(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <header className="bg-gray-800 p-4 shadow-lg">
@@ -30,7 +45,7 @@ function App() {
         </div>
       </header>
 
-      <main className="py-8">
+      {/* <main className="py-8">
         <div className="container mx-auto">
           <h2 className="text-xl mb-4">Trending Now</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -78,7 +93,16 @@ function App() {
             </div>
           </div>
         </div>
-      </main>
+      </main> */}
+
+
+      <p>Jokes: {jokes.length}</p>
+      {
+        jokes.map((joke, index) => (
+          <p key={index}>{joke.joke}</p>
+        ))
+      }
+
 
       <footer className="bg-gray-800 p-6 mt-8">
         <div className="container mx-auto text-center ">
