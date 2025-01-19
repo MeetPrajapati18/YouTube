@@ -32,7 +32,7 @@ const videoSchema = new Schema(
             default: true
         },
         owner: {
-            type: Schema.Types.ObjectId,
+            type: Schema.Types.ObjectId, //user who uploaded the video
             ref: "User"
         }
     }, 

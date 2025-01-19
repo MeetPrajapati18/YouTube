@@ -8,25 +8,25 @@ const Footer = () => {
         <div className="flex justify-center space-x-8 mb-4 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
           <a
             href="#"
-            className="hover:text-purple-400 transition duration-300"
+            className="hover:text-purple-400 text-semibold text-xl transition duration-300"
           >
             About
           </a>
           <a
             href="#"
-            className="hover:text-purple-400 transition duration-300"
+            className="hover:text-purple-400 text-semibold text-xl transition duration-300"
           >
             Privacy Policy
           </a>
           <a
             href="#"
-            className="hover:text-purple-400 transition duration-300"
+            className="hover:text-purple-400 text-semibold text-xl transition duration-300"
           >
             Terms of Service
           </a>
           <a
             href="#"
-            className="hover:text-purple-400 transition duration-300"
+            className="hover:text-purple-400 text-semibold text-xl transition duration-300"
           >
             Help
           </a>
@@ -36,32 +36,32 @@ const Footer = () => {
         <div className="flex justify-center space-x-6 mb-4">
           <a
             href="#"
-            className="text-white hover:text-purple-400 transition duration-300"
+            className="text-white text-semibold text-xl hover:text-purple-400 text-purple-600 transition duration-300"
           >
             <i className="fab fa-facebook-f"></i>
           </a>
           <a
             href="#"
-            className="text-white hover:text-purple-400 transition duration-300"
+            className="text-white text-semibold text-xl hover:text-purple-400 text-purple-600 transition duration-300"
           >
             <i className="fab fa-twitter"></i>
           </a>
           <a
             href="#"
-            className="text-white hover:text-purple-400 transition duration-300"
+            className="text-white text-semibold text-xl hover:text-purple-400 text-purple-600 transition duration-300"
           >
             <i className="fab fa-instagram"></i>
           </a>
           <a
             href="#"
-            className="text-white hover:text-purple-400 transition duration-300"
+            className="text-white text-semibold text-xl hover:text-purple-400 text-purple-600 transition duration-300"
           >
             <i className="fab fa-youtube"></i>
           </a>
         </div>
 
         {/* Copyright */}
-        <p className="text-sm bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
+        <p className="text-sm bg-gradient-to-r text-semibold text-xl from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
           &copy; 2024 VideoStream. All rights reserved.
         </p>
       </div>
