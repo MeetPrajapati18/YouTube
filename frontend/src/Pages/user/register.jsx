@@ -173,7 +173,7 @@ const RegisterPage = () => {
           </div>
         </form>
         <p className="mt-4 text-lg text-center text-gray-400">
-          Don't have an account? <Link
+          Already have an account? <Link
                 to="/login" // Link to the Register page
                 className="text-lg text-pink-500 hover:text-purple-400 transition duration-300"
               >

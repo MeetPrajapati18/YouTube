@@ -33,7 +33,6 @@ const TweetsPage = () => {
 
   const handleLikeClick = async (id) => {
     try {
-      console.log("Tweet ID:", id); // Log the ID to verify it's correct
       const response = await axios.post(
         `/api/v1/likes/toggle/t/${id}`,
         {},
@@ -53,7 +52,7 @@ const TweetsPage = () => {
       );
     } catch (err) {
       console.error("Error toggling like status:", err);
-      alert("Failed to toggle like status. Please check the console for details.");
+      alert("Failed to toggle like status.");
     }
   };
 
@@ -62,72 +61,69 @@ const TweetsPage = () => {
   }, [query, sortBy, sortType]);
 
   return (
-    <div className="flex flex-col items-center min-h-screen bg-gray-900 text-gray-100 p-4">
-      <h1 className="text-4xl mb-6 font-semibold mb-14 py-3 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent text-center">All Tweets</h1>
+    <div className="min-h-screen bg-gray-900 text-white p-4">
+      {/* Header */}
+      <h1 className="text-2xl font-semibold text-center mb-4">Tweets</h1>
 
-      {/* Search and Sort Controls */}
-      <div className="flex flex-wrap justify-center gap-4 mb-6">
+      {/* Search and Sorting */}
+      <div className="flex flex-col gap-3 mb-4">
         <input
           type="text"
           placeholder="Search tweets..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="border border-gray-600 bg-gray-800 rounded p-2 w-64 text-gray-100 shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
+          className="w-full bg-gray-800 border border-gray-700 rounded p-2 focus:ring focus:ring-blue-500 focus:outline-none"
         />
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className="border border-gray-600 bg-gray-800 rounded p-2 text-gray-100 shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-        >
-          <option value="createdAt">Date</option>
-          <option value="content">Content</option>
-        </select>
-        <select
-          value={sortType}
-          onChange={(e) => setSortType(e.target.value)}
-          className="border border-gray-600 bg-gray-800 rounded p-2 text-gray-100 shadow-sm focus:outline-none focus:ring focus:ring-blue-500"
-        >
-          <option value="desc">Descending</option>
-          <option value="asc">Ascending</option>
-        </select>
+        <div className="flex gap-2">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="flex-1 bg-gray-800 border border-gray-700 rounded p-2 focus:ring focus:ring-blue-500 focus:outline-none"
+          >
+            <option value="createdAt">Date</option>
+            <option value="content">Content</option>
+          </select>
+          <select
+            value={sortType}
+            onChange={(e) => setSortType(e.target.value)}
+            className="flex-1 bg-gray-800 border border-gray-700 rounded p-2 focus:ring focus:ring-blue-500 focus:outline-none"
+          >
+            <option value="desc">Descending</option>
+            <option value="asc">Ascending</option>
+          </select>
+        </div>
       </div>
 
       {/* Tweets List */}
-      <div className="w-full max-w-3xl">
+      <div className="space-y-4">
         {loading ? (
-          <p className="text-center text-blue-400">Loading...</p>
+          <p className="text-center text-blue-500">Loading...</p>
         ) : error ? (
-          <p className="text-center text-red-400">{error}</p>
+          <p className="text-center text-red-500">{error}</p>
         ) : tweets.length === 0 ? (
           <p className="text-center text-gray-500">No tweets found.</p>
         ) : (
-          <ul className="space-y-4">
-            {tweets.map((tweet) => (
-              <li
-                key={tweet._id}
-                className="p-1 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 rounded-lg shadow-sm"
+          tweets.map((tweet) => (
+            <div
+              key={tweet._id}
+              className="bg-gray-800 rounded p-4 shadow hover:shadow-lg transition"
+            >
+              <p>{tweet.content}</p>
+              <div className="text-sm text-gray-400 mt-2">
+                By: {tweet.owner?.username || "Unknown"} |{" "}
+                {new Date(tweet.createdAt).toLocaleString()}
+              </div>
+              <button
+                onClick={() => handleLikeClick(tweet._id)}
+                className={`mt-2 flex items-center gap-2 ${
+                  tweet.isLiked ? "text-blue-500" : "text-gray-500"
+                }`}
               >
-                <div className="p-4 bg-gray-800 rounded-lg">
-                  <p className="text-gray-100">{tweet.content}</p>
-                  <div className="text-sm text-gray-400 mt-2">
-                    By: {tweet.owner?.username || "Unknown"} |{" "}
-                    {new Date(tweet.createdAt).toLocaleString()}
-                  </div>
-                  {/* <div className="flex items-center space-x-2 mt-2">
-                  <button
-                    onClick={() => handleLikeClick(tweet._id)}
-                    className={`text-xl ${
-                      tweet.isLiked ? "text-blue-500" : "text-gray-500"
-                    }`}
-                  >
-                    <FaThumbsUp />
-                  </button>
-                  <span className="text-sm text-gray-400">{tweet.likeCount} likes</span>
-                </div> */}
-                </div>
-              </li>
-            ))}
-          </ul>
+                <FaThumbsUp />
+                <span>{tweet.likeCount} Likes</span>
+              </button>
+            </div>
+          ))
         )}
       </div>
     </div>

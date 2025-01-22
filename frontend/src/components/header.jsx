@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); // State for storing user details
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false); // State for dropdown menu visibility
+  const [user, setUser] = useState(null);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef(null); // Ref for dropdown menu
 
-  // On component mount, check if a token exists in localStorage
   useEffect(() => {
     const savedToken = localStorage.getItem("token");
     if (savedToken) {
       setIsLoggedIn(true);
-      fetchUserDetails(); // Fetch user details if logged in
+      fetchUserDetails();
     } else {
       setIsLoggedIn(false);
     }
@@ -24,18 +25,16 @@ const Header = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-
-      // console.log("Response:", response);
 
       if (!response.ok) {
         throw new Error("Failed to fetch user details");
       }
 
       const data = await response.json();
-      setUser(data.data); // Assuming 'data.data' contains the user details
+      setUser(data.data);
     } catch (err) {
       console.error("Error fetching user details:", err.message);
     }
@@ -47,9 +46,9 @@ const Header = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        credentials: "include", // Ensure cookies are sent with the request
+        credentials: "include",
       });
       if (!response.ok) {
         throw new Error("Logout failed");
@@ -64,21 +63,24 @@ const Header = () => {
       console.error("Error during logout:", err.message);
     }
   };
-  
 
-  // Close the dropdown if clicked outside
+  const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+
+  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      const dropdown = document.getElementById("profileDropdown");
-      if (dropdown && !dropdown.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setIsDropdownOpen(false);
       }
     };
 
-    // Attach event listener to detect clicks outside the dropdown
     document.addEventListener("click", handleClickOutside);
 
-    // Clean up the event listener when the component is unmounted
     return () => {
       document.removeEventListener("click", handleClickOutside);
     };
@@ -87,72 +89,108 @@ const Header = () => {
   return (
     <header className="bg-gray-800 p-4 shadow-lg">
       <div className="container mx-auto flex items-center justify-between">
-        <h1 className="text-4xl font-bold text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text">
-          VideoStream
-        </h1>
+        {/* Logo */}
+        <Link
+          to="/"
+          className="text-4xl font-bold text-transparent bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text"
+        >
+          MediaMesh
+        </Link>
 
-        <nav>
-          <ul className="flex space-x-6 bg-gradient-to-r from-purple-400 via-pink-500 to-red-500 bg-clip-text text-transparent">
-            {/*<li>*/}
-            {/*  <Link to="/register" className="text-2xl hover:text-purple-400 transition duration-300">*/}
-            {/*    Register*/}
-            {/*  </Link>*/}
-            {/*</li>*/}
-            {/*<li>*/}
-            {/*  <Link to="/login" className="text-2xl hover:text-purple-400 transition duration-300">*/}
-            {/*    Login*/}
-            {/*  </Link>*/}
-            {/*</li>*/}
-            {!isLoggedIn ? (
-              <>
-                <li>
-                  <Link to="/register" className="text-2xl hover:text-purple-400 transition duration-300">
-                    Register
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/login" className="text-2xl hover:text-purple-400 transition duration-300">
-                    Login
-                  </Link>
-                </li>
-              </>
-            ) : (
-              <li className="relative" onMouseEnter={() => setIsDropdownOpen(true)}>
-                {/* Profile Dropdown Menu */}
-                <button
-                  className="text-3xl text-transparent bg-gradient-to-r from-purple-400 via-pink-600 to-red-500 bg-clip-text inline-block"
-                >
-                  <div className="flex items-center space-x-2">
-                    {user?.avatar && (
-                      <img src={user.avatar} alt="Avatar" className="w-8 h-8 rounded-full" />
-                    )}
-                    <span>{user?.username || "Profile"}</span>
-                  </div>
-                </button>
-                {isDropdownOpen && (
-                  <div
-                    id="profileDropdown"
-                    className="absolute right-0 mt-2 bg-black text-pink-500 text-semibold p-3 shadow-lg rounded-md"
-                  >
-                    <ul>
-                      <li className="cursor-pointer hover:text-purple-400 transition duration-300 mb-4" onClick={() => alert("Refresh token functionality")}>
-                        Refresh Token
-                      </li>
-                      <li className="cursor-pointer hover:text-purple-400 transition duration-300 mb-4">
-                        <Link to="/change-password">Change password</Link>
-                      </li>
-                      <li className="cursor-pointer hover:text-purple-400 transition duration-300 mb-4">
-                        <Link to="/edit-profile">Edit Profile</Link>
-                      </li>
-                      <li className="cursor-pointer hover:text-purple-400 transition duration-300 mb-2" onClick={handleLogout}>
-                        Logout
-                      </li>
-                    </ul>
-                  </div>
+        {/* Mobile Menu Toggle */}
+        <button
+          className="lg:hidden text-white text-2xl focus:outline-none"
+          onClick={toggleMobileMenu}
+          aria-label="Toggle navigation menu"
+        >
+          ☰
+        </button>
+
+        {/* Navigation Links */}
+        <nav
+          className={`${
+            isMobileMenuOpen ? "block" : "hidden"
+          } lg:flex lg:items-center space-x-6 bg-gray-800 lg:bg-transparent lg:space-x-6`}
+        >
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/register"
+                className="text-white text-lg hover:text-purple-400 transition duration-300"
+              >
+                Register
+              </Link>
+              <Link
+                to="/login"
+                className="text-white text-lg hover:text-purple-400 transition duration-300"
+              >
+                Login
+              </Link>
+            </>
+          ) : (
+            <div
+              className="relative"
+              ref={dropdownRef}
+              onMouseEnter={() => setIsDropdownOpen(true)} // Show on hover
+              // handleclickoutside={() => setIsDropdownOpen(false)} // Hide on mouse leave
+            >
+              {/* Profile Dropdown Trigger */}
+              <button
+                className="flex items-center text-white text-lg focus:outline-none"
+                onClick={toggleDropdown}
+                aria-label="Profile menu"
+              >
+                {user?.avatar && (
+                  <img
+                    src={user.avatar}
+                    alt="Avatar"
+                    className="w-8 h-8 rounded-full mr-2"
+                  />
                 )}
-              </li>
-            )}
-          </ul>
+                <span className="text-3xl text-transparent bg-gradient-to-r from-purple-400 via-pink-600 to-red-500 bg-clip-text inline-block">{user?.username || "Profile"}</span>
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div
+                  className="absolute right-0 mt-2 w-48 bg-gray-700 text-white rounded-md shadow-lg z-50"
+                  id="profileDropdown"
+                >
+                  <ul className="p-2 space-y-2">
+                    <li>
+                      <button
+                        className="w-full text-left hover:text-purple-400"
+                        onClick={() => alert("Refresh token functionality")}
+                      >
+                        Refresh Token
+                      </button>
+                    </li>
+                    <li>
+                      <Link
+                        to="/change-password"
+                        className="hover:text-purple-400"
+                      >
+                        Change Password
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/edit-profile" className="hover:text-purple-400">
+                        Edit Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        onClick={handleLogout}
+                        className="w-full text-left hover:text-purple-400"
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                </div>
+              )}
+            </div>
+          )}
         </nav>
       </div>
     </header>

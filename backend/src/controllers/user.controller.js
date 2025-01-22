@@ -333,7 +333,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 });
 
 const getUserChannelProfile = asyncHandler(async (req, res) => {
-  console.log("Fetching profile for:", req.params.username); // Debugging
+  // console.log("Fetching profile for:", req.params.username); // Debugging
   const { username } = req.params;
 
   if (!username?.trim()) {
