@@ -8,7 +8,7 @@
       },
       {
         "src": "src/**/*",
-        "dest": "/backend/api/$1"
+        "dest": "@vercel/static"
       }
     ],
     "routes": [
