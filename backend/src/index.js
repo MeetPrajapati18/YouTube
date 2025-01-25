@@ -1,46 +1,42 @@
-// when you try to connect with db then there can be problem so use it using try catch method
+// // when you try to connect with db then there can be problem so use it using try catch method
 
-// require('dotenv').config({ path: `./env` });
+// // require('dotenv').config({ path: `./env` });
+
+// import dotenv from "dotenv";
+// import connectDB from "./db/index.js";
+// import {app} from './app.js'
+// import serverless from "serverless-http";
+
+// dotenv.config({
+//   path: "./.env"
+// });
+
+// connectDB()
+// .then(() => {
+//   app.listen(process.env.PORT || 8000, () => {
+//       console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
+//   })
+// })
+// .catch((err) => {
+//   console.log("MONGO db connection failed !!! ", err);
+// })
 
 import dotenv from "dotenv";
-
-// import mongoose from "mongoose";
-// import {DB_NAME} from "../constants.js";
 import connectDB from "./db/index.js";
-import {app} from './app.js'
+import { app } from "./app.js";
 
-dotenv.config({
-  path: "./.env"
-});
+dotenv.config({ path: "./.env" });
 
-connectDB()
-.then(() => {
-  app.listen(process.env.PORT || 8000, () => {
-      console.log(`⚙️ Server is running at port : ${process.env.PORT}`);
-  })
-})
-.catch((err) => {
-  console.log("MONGO db connection failed !!! ", err);
-})
-
-/*
-import express from "express";
-const app = express();
-
-;( async () => {
+async function startServer() {
   try {
-    await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`);
-    app.on("error", (error) => {
-      console.log("MongoDB connection error", error);
-      throw error;
+    await connectDB();
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT, () => {
+      console.log(`⚙️ Server is running at port: ${PORT}`);
     });
-
-    app.listen(process.env.PORT, () => {
-      console.log(`App is listening on port ${process.env.PORT}`);
-    });
-  } catch (error){
-    console.error("ERROR", error)
-    throw error;
+  } catch (error) {
+    console.error("MONGO db connection failed !!!", error);
   }
-})();
- */
+}
+
+startServer();
