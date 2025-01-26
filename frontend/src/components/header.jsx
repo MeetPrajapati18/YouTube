@@ -128,6 +128,19 @@ const Header = () => {
               </Link>
             </>
           ) : (
+            <>
+            {/* <Link
+                to="/login"
+                className="text-white text-lg hover:text-purple-400 transition duration-300"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="text-white text-lg hover:text-purple-400 transition duration-300"
+              >
+                Register
+              </Link> */}
             <div
               className="relative"
               ref={dropdownRef}
@@ -135,6 +148,7 @@ const Header = () => {
               // handleclickoutside={() => setIsDropdownOpen(false)} // Hide on mouse leave
             >
               {/* Profile Dropdown Trigger */}
+              
               <button
                 className="flex items-center text-white text-lg focus:outline-none"
                 onClick={toggleDropdown}
@@ -188,8 +202,10 @@ const Header = () => {
                     </li>
                   </ul>
                 </div>
+                
               )}
             </div>
+            </>
           )}
         </nav>
       </div>
