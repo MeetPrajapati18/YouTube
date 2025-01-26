@@ -164,12 +164,12 @@ const Main = () => {
   const fetchVideos = async (query = "") => {
     try {
       setIsLoading(true);
-      // const token = localStorage.getItem("token");
-      // if (!token) {
-      //   setError("Unauthorized: Please log in to access videos.");
-      //   setIsLoading(false);
-      //   return;
-      // }
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Unauthorized: Please log in to access videos.");
+        setIsLoading(false);
+        return;
+      }
 
       const response = await axios.get("/api/v1/videos", {
         params: {
