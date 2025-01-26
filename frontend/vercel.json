@@ -1,8 +1,12 @@
 {
-    "rewrites": [
-      {
-        "source": "/(.*)",
-        "destination": "/"
-      }
-    ]
-  } 
+  "rewrites": [
+    {
+      "source": "/api/:path*", 
+      "destination": "https://youtube-backend-88d09717154b.herokuapp.com/*"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
+  ]
+}
