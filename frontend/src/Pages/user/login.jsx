@@ -19,6 +19,9 @@ const Login = () => {
         ? { email: identifier, password }
         : { username: identifier, password };
   
+      console.log("Payload:", payload);
+      console.log("Identifier:", identifier);
+      
       const response = await fetch("/api/v1/users/login", {
         method: "POST",
         headers: {
@@ -26,7 +29,7 @@ const Login = () => {
         },
         body: JSON.stringify(payload),
       });
-  
+      console.log("response", response);  
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Invalid username/email or password");
