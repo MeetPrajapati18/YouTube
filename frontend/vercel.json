@@ -1,8 +1,24 @@
 {
+  "version": 2,
   "rewrites": [
     {
-      "source": "/(.*)",
-      "destination": "/"
+      "source": "/api/v1/:path*",
+      "destination": "https://youtube-backend-88d09717154b.herokuapp.com/api/v1/:path*"
+    }
+  ],
+  "builds": [
+    {
+      "src": "vite.config.js",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
