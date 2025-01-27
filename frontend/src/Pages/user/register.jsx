@@ -50,7 +50,7 @@ const RegisterPage = () => {
 
       const response = await fetch("/api/v1/users/register", {
         method: "POST",
-        // body: formDataToSend,
+        body: formDataToSend,
       });
 
       const data = await response.json();
