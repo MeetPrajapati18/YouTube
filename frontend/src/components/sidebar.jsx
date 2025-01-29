@@ -26,10 +26,23 @@ const Sidebar = ({ username, userId }) => {
                 <span>Videos</span>
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 to="/tweet"
                 className="flex flex-col items-center text-gray-300 hover:text-purple-300 hover:bg-gray-700 p-4 rounded"
+              >
+                <FaTwitter className="text-3xl mb-2" />
+                <span>Tweets</span>
+              </Link>
+            </li> */}
+            <li>
+              <Link
+                // Remove the "to" attribute to prevent navigation
+                className="flex flex-col items-center text-gray-400 p-4 rounded"
+                style={{
+                  pointerEvents: 'none',
+                  cursor: 'url(data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Ccircle cx="12" cy="12" r="10" fill="red" /%3E%3C/svg%3E) 12 12, auto',
+                }}
               >
                 <FaTwitter className="text-3xl mb-2" />
                 <span>Tweets</span>

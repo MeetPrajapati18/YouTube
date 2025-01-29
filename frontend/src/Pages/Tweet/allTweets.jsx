@@ -113,7 +113,7 @@ const TweetsPage = () => {
                 By: {tweet.owner?.username || "Unknown"} |{" "}
                 {new Date(tweet.createdAt).toLocaleString()}
               </div>
-              <button
+              {/* <button
                 onClick={() => handleLikeClick(tweet._id)}
                 className={`mt-2 flex items-center gap-2 ${
                   tweet.isLiked ? "text-blue-500" : "text-gray-500"
@@ -121,7 +121,7 @@ const TweetsPage = () => {
               >
                 <FaThumbsUp />
                 <span>{tweet.likeCount} Likes</span>
-              </button>
+              </button> */}
             </div>
           ))
         )}
