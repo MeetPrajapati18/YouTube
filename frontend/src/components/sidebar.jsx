@@ -37,11 +37,13 @@ const Sidebar = ({ username, userId }) => {
             </li> */}
             <li>
               <Link
-                // Remove the "to" attribute to prevent navigation
-                className="flex flex-col items-center text-gray-400 p-4 rounded"
+                to="#" // Prevents actual navigation
+                className="flex flex-col items-center text-gray-400 p-4 rounded cursor-not-allowed"
+                onClick={(e) => e.preventDefault()} // Prevents click action
+                aria-disabled="true"
                 style={{
-                  pointerEvents: 'none',
-                  cursor: 'url(data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"%3E%3Ccircle cx="12" cy="12" r="10" fill="red" /%3E%3C/svg%3E) 12 12, auto',
+                  pointerEvents: "none", // Disables interactions
+                  opacity: 0.5, // Makes it look disabled
                 }}
               >
                 <FaTwitter className="text-3xl mb-2" />
