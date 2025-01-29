@@ -45,7 +45,7 @@ const EditProfile = () => {
                 return;
             }
 
-            const response = await axios.put(
+            await axios.put(
                 "/api/v1/users/update-profile",
                 { fullName, email },
                 { headers: { Authorization: `Bearer ${token}` } }
@@ -127,15 +127,16 @@ const EditProfile = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white px-4">
             <div className="max-w-4xl mx-auto p-6 space-y-12">
                 <h2 className="text-4xl font-bold text-center text-gradient bg-clip-text bg-gradient-to-r from-pink-500 to-red-500">
                     Edit Profile
                 </h2>
 
+                {/* Profile Form */}
                 <form
                     onSubmit={handleProfileUpdate}
-                    className="bg-gray-800 p-8 rounded-lg shadow-md space-y-6"
+                    className="bg-gray-800 p-6 md:p-8 rounded-lg shadow-md space-y-6"
                 >
                     <div>
                         <label htmlFor="fullName" className="block text-lg font-semibold mb-2">
@@ -174,13 +175,13 @@ const EditProfile = () => {
                 {/* Avatar Section */}
                 <div className="space-y-6">
                     <h3 className="text-3xl font-bold">Change Avatar</h3>
-                    <div className="flex flex-col md:flex-row items-center md:space-x-6">
+                    <div className="flex flex-col md:flex-row items-center md:space-x-6 space-y-4 md:space-y-0">
                         <img
                             src={avatar || "/default-avatar.png"}
                             alt="Avatar"
                             className="w-24 h-24 rounded-full object-cover border-4 border-pink-500"
                         />
-                        <div className="flex flex-col space-y-4">
+                        <div className="flex flex-col space-y-4 w-full">
                             <input
                                 type="file"
                                 onChange={(e) => setNewAvatar(e.target.files[0])}
@@ -188,7 +189,7 @@ const EditProfile = () => {
                             />
                             <button
                                 onClick={handleAvatarChange}
-                                className="bg-gradient-to-r from-pink-500 to-red-500 text-white py-2 px-6 rounded-lg font-semibold hover:scale-105 transition"
+                                className="bg-gradient-to-r from-pink-500 to-red-500 text-white py-2 px-6 rounded-lg font-semibold hover:scale-105 transition w-full"
                             >
                                 Update Avatar
                             </button>
@@ -197,8 +198,7 @@ const EditProfile = () => {
                 </div>
 
                 {/* Cover Image Section */}
-                {/* Cover Image Section */}
-                <div className="space-y-6 pb-16 md:pb-6"> {/* Added padding-bottom to prevent overlap */}
+                <div className="space-y-6 pb-10">
                     <h3 className="text-3xl font-bold">Change Cover Image</h3>
                     <div className="relative">
                         <img
@@ -206,15 +206,15 @@ const EditProfile = () => {
                             alt="Cover"
                             className="w-full h-48 object-cover rounded-lg"
                         />
-                        <div className="mt-4 flex flex-col md:flex-row items-center md:justify-between space-y-4 md:space-y-0">
+                        <div className="mt-4 flex flex-col md:flex-row items-center space-y-4 md:space-y-0 w-full">
                             <input
                                 type="file"
                                 onChange={(e) => setNewCoverImage(e.target.files[0])}
-                                className="text-white file:bg-pink-600 file:text-white file:rounded-lg file:py-2 file:px-4 file:cursor-pointer"
+                                className="text-white file:bg-pink-600 file:text-white file:rounded-lg file:py-2 file:px-4 file:cursor-pointer w-full"
                             />
                             <button
                                 onClick={handleCoverImageChange}
-                                className="bg-gradient-to-r from-pink-500 to-red-500 text-white py-2 px-6 rounded-lg font-semibold hover:scale-105 transition"
+                                className="bg-gradient-to-r from-pink-500 to-red-500 text-white py-2 px-6 rounded-lg font-semibold hover:scale-105 transition w-full md:w-auto"
                             >
                                 Update Cover Image
                             </button>
