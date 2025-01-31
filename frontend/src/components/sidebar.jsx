@@ -86,7 +86,7 @@ const Sidebar = ({ username, userId }) => {
             <span className="text-xs">Videos</span>
           </Link>
           <Link
-            to="#"
+            to="/tweet"
             className="flex flex-col items-center text-gray-200 hover:text-purple-300"
           >
             <FaTwitter className="text-2xl" />
