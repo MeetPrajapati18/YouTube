@@ -35,21 +35,6 @@ const Sidebar = ({ username, userId }) => {
                 <span>Tweets</span>
               </Link>
             </li>
-            {/* <li>
-              <Link
-                to="#" // Prevents actual navigation
-                className="flex flex-col items-center text-gray-400 p-4 rounded cursor-not-allowed"
-                onClick={(e) => e.preventDefault()} // Prevents click action
-                aria-disabled="true"
-                style={{
-                  pointerEvents: "none", // Disables interactions
-                  opacity: 0.5, // Makes it look disabled
-                }}
-              >
-                <FaTwitter className="text-3xl mb-2" />
-                <span>Tweets</span>
-              </Link>
-            </li> */}
             <li>
               <Link
                 to={`/view-profile/${username}`}

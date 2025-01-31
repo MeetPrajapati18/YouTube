@@ -28,7 +28,7 @@ const AddVideoFile = () => {
 
     try {
       setMessage("Uploading...");
-      const response = await axios.post("/api/v1/videos/", formData, {
+      const response = await axios.post("/api/v1/videos", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
