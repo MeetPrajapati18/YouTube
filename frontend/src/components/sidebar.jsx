@@ -26,7 +26,7 @@ const Sidebar = ({ username, userId }) => {
                 <span>Videos</span>
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
                 to="/tweet"
                 className="flex flex-col items-center text-gray-300 hover:text-purple-300 hover:bg-gray-700 p-4 rounded"
@@ -34,8 +34,8 @@ const Sidebar = ({ username, userId }) => {
                 <FaTwitter className="text-3xl mb-2" />
                 <span>Tweets</span>
               </Link>
-            </li> */}
-            <li>
+            </li>
+            {/* <li>
               <Link
                 to="#" // Prevents actual navigation
                 className="flex flex-col items-center text-gray-400 p-4 rounded cursor-not-allowed"
@@ -49,7 +49,7 @@ const Sidebar = ({ username, userId }) => {
                 <FaTwitter className="text-3xl mb-2" />
                 <span>Tweets</span>
               </Link>
-            </li>
+            </li> */}
             <li>
               <Link
                 to={`/view-profile/${username}`}
@@ -101,8 +101,8 @@ const Sidebar = ({ username, userId }) => {
             <span className="text-xs">Videos</span>
           </Link>
           <Link
-            to="/tweet"
-            className="flex flex-col items-center text-gray-300 hover:text-purple-300"
+            to="#"
+            className="flex flex-col items-center text-gray-200 hover:text-purple-300"
           >
             <FaTwitter className="text-2xl" />
             <span className="text-xs">Tweets</span>

@@ -15,7 +15,7 @@ const TweetsPage = () => {
     setError("");
 
     try {
-      const response = await axios.get(`/api/v1/tweets/`, {
+      const response = await axios.get(`/api/v1/tweets`, {
         params: { query, sortBy, sortType },
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
