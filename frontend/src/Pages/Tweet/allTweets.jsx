@@ -110,10 +110,10 @@ const TweetsPage = () => {
             >
               <p>{tweet.content}</p>
               <div className="text-sm text-gray-400 mt-2">
-                <Link to={`/channel/${tweet.owner?._id}`} className="flex items-center">
+                {/* <Link to={`/channel/${tweet.owner?._id}`} className="flex items-center"> */}
                   By: {tweet.owner?.username || "Unknown"} |{" "}
                   {new Date(tweet.createdAt).toLocaleString()}
-                </Link>
+                {/* </Link> */}
               </div>
               {/* <button
                 onClick={() => handleLikeClick(tweet._id)}
