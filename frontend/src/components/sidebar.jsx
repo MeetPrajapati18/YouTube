@@ -59,7 +59,7 @@ const Sidebar = ({ username, userId }) => {
                 className="flex flex-col items-center text-gray-300 hover:text-purple-300 hover:bg-gray-700 p-4 rounded"
               >
                 <FaPlus className="text-3xl mb-2" />
-                <span>Add Video</span>
+                <span>Add</span>
               </Link>
             </li>
             <li>
